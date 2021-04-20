@@ -1,6 +1,7 @@
 require('dotenv-safe').config()
 const express = require('express')
 const freeclimbSDK = require('@freeclimb/sdk')
+const codeGenerator = require('./confirmationCode')
 const host = process.env.HOST
 const accountId = process.env.ACCOUNT_ID
 const authToken = process.env.AUTH_TOKEN
@@ -10,8 +11,7 @@ const freeclimb = freeclimbSDK(accountId, authToken)
 router = express.Router()
 
 router.post('/ccConfirmationMessage', (req, res) => {
-   const confirmationNumber = Math.floor(100000 + Math.random() * 900000).toString()
-   console.log(req)
+   const confirmationNumber = codeGenerator.generate()
    res
       .status(200)
       .json(
