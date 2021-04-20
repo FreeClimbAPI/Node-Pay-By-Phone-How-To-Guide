@@ -60,7 +60,7 @@ router.post('/ccRecap', (req, res) => {
                 freeclimb.percl.redirect(`${host}/ccRecapPrompt`)
             )
         )
-    } else if (errCount >= 3 || retries >= 1) {
+    } else if (errCount >= 1 || retries >= 1) {
         errCount = 0
         res.status(200).json(
             freeclimb.percl.build(
