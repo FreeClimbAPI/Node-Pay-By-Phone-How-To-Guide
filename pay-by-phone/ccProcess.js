@@ -18,7 +18,7 @@ router.post('/ccProcess', (req, res) => {
         )
     } else if (retries < 1) {
         retries++
-        console.error(testResponse.message)
+       // console.error(testResponse.message)
         res.status(200).json(
             freeclimb.percl.build(
                 freeclimb.percl.say(
@@ -29,7 +29,7 @@ router.post('/ccProcess', (req, res) => {
         )
     } else {
         retries = 0
-        console.error(testResponse.message)
+       // console.error(testResponse.message)
         res.status(200).json(
             freeclimb.percl.build(
                 freeclimb.percl.say(

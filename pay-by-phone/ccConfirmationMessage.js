@@ -1,15 +1,16 @@
 const express = require('express')
 const freeclimb = require('./freeclimb')
-
+const codeGenerator = require('./confirmationCode')
 const host = process.env.HOST
 const fcNumber = process.env.FC_NUMBER
 
 const router = express.Router()
 
 router.post('/ccConfirmationMessage', (req, res) => {
-    const confirmationNumber = Math.floor(100000 + Math.random() * 900000).toString()
-    console.log(req)
-    res.status(200).json(
+   const confirmationNumber = codeGenerator.generate()
+   res
+      .status(200)
+      .json(
         freeclimb.percl.build(
             freeclimb.percl.say(
                 `Thank you for your payment, your confirmation number is ${confirmationNumber}, you will receive an sms shortly`
