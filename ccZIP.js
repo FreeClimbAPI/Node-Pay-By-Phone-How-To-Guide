@@ -56,7 +56,7 @@ router.post('/ccZip', (req, res) => {
 
         )
     }
-    else if (errCount > 3) {
+    else if (errCount >= 3) {
         res.status(200).json(
             freeclimb.percl.build(
                 freeclimb.percl.say('You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'),
@@ -70,7 +70,7 @@ router.post('/ccZip', (req, res) => {
         res.status(200).json(
             freeclimb.percl.build(
                 freeclimb.percl.say(`Please enter the 5 digit zip code of the billing address for the card you've entered.`),
-                freeclimb.percl.redirect(`${host}/ccAmountPrompt`)
+                freeclimb.percl.redirect(`${host}/ccZipPrompt`)
             )
 
         )

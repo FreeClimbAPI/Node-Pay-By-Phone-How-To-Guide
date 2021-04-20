@@ -15,7 +15,6 @@ let retries = 0
 
 router.post('/ccRecapPrompt', (req, res) => {
     customers.add(req.from)
-    console.log(req.from)
     res.status(200).json(
         freeclimb.percl.build(
             freeclimb.percl.getDigits(
@@ -70,7 +69,7 @@ router.post('/ccRecap', (req, res) => {
                     )
                 )
             )
-    } else if (errCount >= 3 || retries >= 1) {
+    } else if (errCount >= 1 || retries >= 1) {
         errCount = 0
         res
             .status(200)
