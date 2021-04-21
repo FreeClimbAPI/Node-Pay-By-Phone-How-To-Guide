@@ -31,7 +31,7 @@ router.post('/ccNumberPrompt', (req, res) => {
                 maxDigits: 19,
                 minDigits: 1,
                 flushBuffer: true,
-                privacyMode: true
+                privacyMode: true //privacyMode hides important information to maintain pci compliance, avoid logging sensitive info
             })
         )
     )
@@ -42,7 +42,7 @@ router.post('/ccNumber', (req, res) => {
     const digits = getDigitsResponse.digits
     const ccValidation = cardValidator.number(digits)
 
-    if (ccValidation.isValid) { 
+    if (ccValidation.isValid) {  //ccNumber checked against a 3rd party library using the luhn algorithm
         caller.CVVType = ccValidation.card.code.size 
         caller.ccNum = digits
         res.status(200).json(
