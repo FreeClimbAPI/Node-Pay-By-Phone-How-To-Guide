@@ -1,7 +1,6 @@
 const express = require('express')
 const freeclimb = require('./freeclimb')
 
-require('dotenv-safe').config()
 
 const host = process.env.HOST
 

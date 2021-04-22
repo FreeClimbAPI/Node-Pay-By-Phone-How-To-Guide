@@ -1,3 +1,5 @@
+require('dotenv-safe').config()
+
 const bodyParser = require('body-parser')
 const express = require('express')
 const mainMenuRoutes = require('./mainMenu')
@@ -12,7 +14,6 @@ const ccProcessRoutes = require('./ccProcess')
 const ccConfirmationMessageRoutes = require('./ccConfirmationMessage')
 const freeclimb = require('./freeclimb')
 
-require('dotenv-safe').config()
 
 const app = express()
 const port = process.env.PORT || 3000
