@@ -1,5 +1,5 @@
-describe('test',()=>{
-    it("asserts truthiness", ()=>{
+describe('test', () => {
+    it('asserts truthiness', () => {
         expect(true).toBeTruthy()
     })
 })

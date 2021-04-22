@@ -14,17 +14,15 @@ router.post('/ccNumberPrompt', (req, res) => {
     const incoming = req.body.from
     let script
     if (customers.has(incoming)) {
-        script = "Okay, whats that card number"
+        script = 'Okay, whats that card number'
     } else {
-        script = "To make a payment with a credit card please enter the card number"
+        script = 'To make a payment with a credit card please enter the card number'
     }
 
     res.status(200).json(
         freeclimb.percl.build(
             freeclimb.percl.getDigits(`${host}/ccNumber`, {
-                prompts: [
-                    freeclimb.percl.say(script)
-                ],
+                prompts: [freeclimb.percl.say(script)],
                 maxDigits: 19,
                 minDigits: 1,
                 flushBuffer: true,
@@ -39,44 +37,33 @@ router.post('/ccNumber', (req, res) => {
     const digits = getDigitsResponse.digits
     const ccValidation = cardValidator.number(digits)
 
-    if (ccValidation.isValid) {  //ccNumber checked against a 3rd party library using the luhn algorithm
-        caller.CVVType = ccValidation.card.code.size 
+    if (ccValidation.isValid) {
+        //ccNumber checked against a 3rd party library using the luhn algorithm
+        caller.CVVType = ccValidation.card.code.size
         caller.ccNum = digits
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.redirect(`${host}/ccExpiryPrompt`) 
-            )
-
+            freeclimb.percl.build(freeclimb.percl.redirect(`${host}/ccExpiryPrompt`))
         )
     } else if (digits == '0') {
+        res.status(200).json(freeclimb.percl.build(freeclimb.percl.redirect(`${host}/transfer`)))
+    } else if (errCount > 3) {
         res.status(200).json(
             freeclimb.percl.build(
+                freeclimb.percl.say(
+                    'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                ),
                 freeclimb.percl.redirect(`${host}/transfer`)
             )
-
         )
-    }
-    else if (errCount > 3) {
-        res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say('You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
-
-        ) 
-    }
-    else {
+    } else {
         errCount++
         res.status(200).json(
             freeclimb.percl.build(
                 freeclimb.percl.say('Sorry the number you entered was invalid please try again'),
                 freeclimb.percl.redirect(`${host}/ccNumberPrompt`)
             )
-
         )
     }
-
-
 })
 
 module.exports = router
