@@ -1,7 +1,7 @@
 {
-  "name": "Node_IVR_Sample_Base",
+  "name": "Node_Pay_By_Phone",
   "version": "1.0.0",
-  "description": "Base for FreeClimb Node-SDK sample IVR applications",
+  "description": "Simple pay-by-phone application tutorial",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
