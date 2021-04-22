@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-describe('test', () => {
-    it('asserts truthiness', () => {
-        expect(true).toBeTruthy()
-    })
-=======
 let request
 
 require('dotenv-safe').config()
@@ -76,5 +70,4 @@ describe('POST /endCall', () => {
       }
     ])
   })
->>>>>>> f39b31b5... init
 })
