@@ -1,13 +1,5 @@
-require('dotenv-safe').config()
-const express = require('express')
 const bodyParser = require('body-parser')
-const app = express()
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-
-const port = process.env.PORT || 3000
-const freeclimb = require('./freeclimb')
-
+const express = require('express')
 const mainMenuRoutes = require('./mainMenu')
 const ccAmtRoutes = require('./ccAmount')
 const ccAmountConfirmationRoutes = require('./ccAmountConfirmation')
@@ -18,7 +10,15 @@ const ccZipRoutes = require('./ccZip')
 const ccRecapRoutes = require('./ccRecap')
 const ccProcessRoutes = require('./ccProcess')
 const ccConfirmationMessageRoutes = require('./ccConfirmationMessage')
+const freeclimb = require('./freeclimb')
 
+require('dotenv-safe').config()
+
+const app = express()
+const port = process.env.PORT || 3000
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', mainMenuRoutes)
 app.use('/', ccAmtRoutes)
 app.use('/', ccAmountConfirmationRoutes)

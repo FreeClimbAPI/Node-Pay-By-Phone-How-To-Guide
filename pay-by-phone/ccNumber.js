@@ -1,9 +1,11 @@
-require('dotenv-safe').config()
 const express = require('express')
 const cardValidator = require('card-validator')
 const customers = require('./customers')
 const caller = require('./caller')
 const freeclimb = require('./freeclimb')
+
+require('dotenv-safe').config()
+
 const host = process.env.HOST
 
 router = express.Router()
