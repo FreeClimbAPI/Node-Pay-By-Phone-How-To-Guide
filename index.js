@@ -4,13 +4,11 @@ const bodyParser = require('body-parser')
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-const freeclimbSDK = require('@freeclimb/sdk')
+
 
 const port = process.env.PORT || 3000
-const host = process.env.HOST
-const accountId = process.env.ACCOUNT_ID
-const authToken = process.env.AUTH_TOKEN
-const freeclimb = freeclimbSDK(accountId, authToken)
+const freeclimb = require('./freeclimb')
+
 
 const mainMenuRoutes = require('./mainMenu')
 const ccAmtRoutes = require('./ccAmount')

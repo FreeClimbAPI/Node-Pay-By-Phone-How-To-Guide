@@ -1,13 +1,10 @@
 require('dotenv-safe').config()
 const express = require('express')
-const freeclimbSDK = require('@freeclimb/sdk')
+const cardValidator = require('card-validator')
 const customers = require('./customers')
 const caller = require('./caller')
+const freeclimb = require('./freeclimb')
 const host = process.env.HOST
-const accountId = process.env.ACCOUNT_ID
-const authToken = process.env.AUTH_TOKEN
-const freeclimb = freeclimbSDK(accountId, authToken)
-const cardValidator = require('card-validator')
 
 router = express.Router()
 

@@ -3,16 +3,15 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/FreeClimbAPI/Node-IVR-Sample-Apps/actions/workflows/node-ivr-sample-app-call-router-1.0.yaml/badge.svg)](https://github.com/FreeClimbAPI/Node-IVR-Sample-Apps/actions/workflows/node-ivr-sample-app-call-router-1.0.yaml)
-[![Coverage Status](https://coveralls.io/repos/github/FreeClimbAPI/Node-2FA-Tutorial/badge.svg?branch=master)](https://coveralls.io/github/FreeClimbAPI/Node-IVR-Sample-Apps?branch=master)
+[![Build Status](https://github.com/FreeClimbAPI/Node-Pay-By-Phone-Tutorial/actions/workflows/node-pay-by-phone-sample.yaml/badge.svg)](https://github.com/FreeClimbAPI/Node-Pay-By-Phone-Tutorial/actions/workflows/node-pay-by-phone-tutorial.yaml)
+[![Coverage Status](https://coveralls.io/repos/github/FreeClimbAPI/Node-Pay-By-Phone/badge.svg?branch=master)](https://coveralls.io/github/FreeClimbAPI/Node-Pay-By-Phone-Tutorial?branch=master)
 
 
 
 Specifically, the project will:
--   Answer an incoming call from the user
--   Collect DTMF input from the user
--   Route the users call based on DTMF input
--   check user input where appropriate
+-   Simulate having a user submit payment via an IVR
+-   Collect DTMF input from the user in privacy mode
+-   Send a confirmation message via sms
 
 ## Tutorial
 
