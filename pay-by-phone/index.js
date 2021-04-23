@@ -8,7 +8,7 @@ const ccAmountConfirmationRoutes = require('./ccAmountConfirmation')
 const ccNumberRoutes = require('./ccNumber')
 const ccExpiryRoutes = require('./ccExpiry')
 const ccCVVRoutes = require('./ccCVV')
-const ccZipRoutes = require('./ccZip')
+const ccZipRoutes = require('./ccZIP')
 const ccRecapRoutes = require('./ccRecap')
 const ccProcessRoutes = require('./ccProcess')
 const ccConfirmationMessageRoutes = require('./ccConfirmationMessage')
@@ -16,6 +16,7 @@ const freeclimb = require('./freeclimb')
 
 const app = express()
 const port = process.env.PORT || 3000
+const host = process.env.HOST
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

@@ -54,7 +54,7 @@ router.post('/ccAmountConfirmation', (req, res) => {
             freeclimb.percl.build(
                 freeclimb.percl.say('Error'),
                 freeclimb.percl.redirect(
-                    `${host}/ccAmountConfirmationPrompt?acct=${req.param('amt')}`
+                    `${host}/ccAmountConfirmationPrompt?amt=${req.param('amt')}`
                 )
             )
         )

@@ -49,6 +49,15 @@ router.post('/ccCVV', (req, res) => {
                 freeclimb.percl.redirect(`${host}/transfer`)
             )
         )
+    } else if (errCount >= 3) {
+        res.status(200).json(
+            freeclimb.percl.build(
+                freeclimb.percl.say(
+                    'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                ),
+                freeclimb.percl.redirect(`${host}/transfer`)
+            )
+        )
     } else {
         errCount++
         res.status(200).json(

@@ -13,8 +13,6 @@ Specifically, the project will:
 -   Collect DTMF input from the user in privacy mode
 -   Send a confirmation message via sms
 
-## Tutorial
-
 
 ## Requirements
 A [FreeClimb account](https://www.freeclimb.com/dashboard/signup/)

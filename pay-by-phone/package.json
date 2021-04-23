@@ -1,7 +1,7 @@
 {
-  "name": "Node_Pay_By_Phone_Tutorial",
+  "name": "Node_Pay_By_Phone",
   "version": "1.0.0",
-  "description": "Simple pay-by-phone tutorial app for nodejs",
+  "description": "Simple pay-by-phone application tutorial",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
