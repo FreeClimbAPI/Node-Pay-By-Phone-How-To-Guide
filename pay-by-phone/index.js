@@ -14,7 +14,6 @@ const ccProcessRoutes = require('./ccProcess')
 const ccConfirmationMessageRoutes = require('./ccConfirmationMessage')
 const freeclimb = require('./freeclimb')
 
-
 const app = express()
 const port = process.env.PORT || 3000
 

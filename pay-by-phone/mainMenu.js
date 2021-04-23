@@ -1,7 +1,6 @@
 const express = require('express')
 const freeclimb = require('./freeclimb')
 
-
 const host = process.env.HOST
 
 const router = express.Router()
