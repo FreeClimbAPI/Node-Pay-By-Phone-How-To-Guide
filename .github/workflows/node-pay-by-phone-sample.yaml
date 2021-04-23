@@ -27,7 +27,7 @@ jobs:
             - name: Static Code Analysis
               run: yarn lint
             - name: Test
-              run: yarn test:ci
+              run: yarn test:cov
               env:
                   API_KEY: 'N/A'
                   ACCOUNT_ID: 'N/A'
@@ -39,3 +39,5 @@ jobs:
               uses: coverallsapp/github-action@master
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
+                  flag-name: ${{matrix.os}}-node-${{ matrix.node }}
+                  parallel: true
