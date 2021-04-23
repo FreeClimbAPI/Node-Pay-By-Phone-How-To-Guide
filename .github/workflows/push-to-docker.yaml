@@ -20,7 +20,7 @@ jobs:
             - name: Push to Docker Hub
               uses: docker/build-push-action@v2
               with:
-                  file: ./pay-by-phone/Dockerfile
-                  context: ./pay-by-phone
+                  file: ./Dockerfile
+                  context: .
                   tags: freeclimbapi/pay-by-phone:latest
                   push: true
