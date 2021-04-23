@@ -15,7 +15,9 @@ beforeEach(() => {
 
 describe('POST /ccExpiryPrompt', () => {
     it('returns the percl commands for cc expiry entry menu with correct script if new caller', async () => {
-        const res = await request.post('/ccExpiryPrompt').type('form')
+        const res = await request
+            .post('/ccExpiryPrompt')
+            .type('form')
             .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -29,7 +31,8 @@ describe('POST /ccExpiryPrompt', () => {
                     prompts: [
                         {
                             Say: {
-                                text: 'Enter the expiration date using two digits for the month and two digits for the year'
+                                text:
+                                    'Enter the expiration date using two digits for the month and two digits for the year'
                             }
                         }
                     ]
@@ -40,7 +43,9 @@ describe('POST /ccExpiryPrompt', () => {
 
     it('returns the percl commands for cc expiry entry menu with correct script if existing caller', async () => {
         customers.add('1')
-        const res = await request.post('/ccExpiryPrompt').type('form')
+        const res = await request
+            .post('/ccExpiryPrompt')
+            .type('form')
             .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -66,7 +71,9 @@ describe('POST /ccExpiryPrompt', () => {
 
 describe('POST /ccExpiry', () => {
     it('returns percl command for redirect when user enters 0', async () => {
-        const res = await request.post('/ccExpiry').type('form')
+        const res = await request
+            .post('/ccExpiry')
+            .type('form')
             .send({ digits: '0' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -79,7 +86,9 @@ describe('POST /ccExpiry', () => {
     })
 
     it('returns percl command for redirect to ccCVVPrompt when user enters valid cc expiry', async () => {
-        const res = await request.post('/ccExpiry').type('form')
+        const res = await request
+            .post('/ccExpiry')
+            .type('form')
             .send({ digits: '0431' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -92,7 +101,9 @@ describe('POST /ccExpiry', () => {
     })
 
     it('returns percl command for err message and redirect to original prompt on error', async () => {
-        const res = await request.post('/ccExpiry').type('form')
+        const res = await request
+            .post('/ccExpiry')
+            .type('form')
             .send({ digits: '0411' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -117,13 +128,16 @@ describe('POST /ccExpiry', () => {
                 .send({ digits: '0411' })
         }
 
-        const res = await request.post('/ccExpiry').type('form')
+        const res = await request
+            .post('/ccExpiry')
+            .type('form')
             .send({ digits: '0411' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
             {
                 Say: {
-                    text: 'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    text:
+                        'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }
             },
             {

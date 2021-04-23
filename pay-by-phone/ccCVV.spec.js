@@ -17,7 +17,9 @@ beforeEach(() => {
 
 describe('POST /ccCVVPrompt', () => {
     it('returns the percl commands for cc CVV entry menu with correct script if new caller', async () => {
-        const res = await request.post('/ccCVVPrompt').type('form')
+        const res = await request
+            .post('/ccCVVPrompt')
+            .type('form')
             .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -42,7 +44,9 @@ describe('POST /ccCVVPrompt', () => {
 
     it('returns the percl commands for cc CVV entry menu with correct script if existing caller', async () => {
         customers.add('1')
-        const res = await request.post('/ccCVVPrompt').type('form')
+        const res = await request
+            .post('/ccCVVPrompt')
+            .type('form')
             .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -68,7 +72,9 @@ describe('POST /ccCVVPrompt', () => {
 
 describe('POST /ccCVV', () => {
     it('returns percl command for redirect when user enters 0', async () => {
-        const res = await request.post('/ccCVV').type('form')
+        const res = await request
+            .post('/ccCVV')
+            .type('form')
             .send({ digits: '0' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -82,7 +88,9 @@ describe('POST /ccCVV', () => {
 
     it('returns percl command for redirect to ccZipPrompt when user enters valid cc CVV', async () => {
         caller.CVVType = 4
-        const res = await request.post('/ccCVV').type('form')
+        const res = await request
+            .post('/ccCVV')
+            .type('form')
             .send({ digits: '0000' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -96,7 +104,9 @@ describe('POST /ccCVV', () => {
 
     it('returns percl command for err message and redirect to original prompt on error', async () => {
         caller.CVVType = 3
-        const res = await request.post('/ccCVV').type('form')
+        const res = await request
+            .post('/ccCVV')
+            .type('form')
             .send({ digits: '0000' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -122,13 +132,16 @@ describe('POST /ccCVV', () => {
                 .send({ digits: '0000' })
         }
 
-        const res = await request.post('/ccCVV').type('form')
+        const res = await request
+            .post('/ccCVV')
+            .type('form')
             .send({ digits: '0000' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
             {
                 Say: {
-                    text: 'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    text:
+                        'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }
             },
             {

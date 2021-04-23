@@ -15,7 +15,9 @@ beforeEach(() => {
 
 describe('POST /ccAmountPrompt', () => {
     it('returns the percl commands for amount entry menu with correct script if new caller', async () => {
-        const res = await request.post('/ccAmountPrompt').type('form')
+        const res = await request
+            .post('/ccAmountPrompt')
+            .type('form')
             .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -45,7 +47,9 @@ describe('POST /ccAmountPrompt', () => {
 
     it('returns the percl commands for amount entry menu with correct script if existing caller', async () => {
         customers.add('1')
-        const res = await request.post('/ccAmountPrompt').type('form')
+        const res = await request
+            .post('/ccAmountPrompt')
+            .type('form')
             .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -58,8 +62,7 @@ describe('POST /ccAmountPrompt', () => {
                     prompts: [
                         {
                             Say: {
-                                text:
-                                    'so how much would you like to pay'
+                                text: 'so how much would you like to pay'
                             }
                         },
                         {
@@ -76,7 +79,9 @@ describe('POST /ccAmountPrompt', () => {
 
 describe('POST /ccAmount', () => {
     it('returns percl command for redirect when user enters 0', async () => {
-        const res = await request.post('/ccAmount').type('form')
+        const res = await request
+            .post('/ccAmount')
+            .type('form')
             .send({ digits: '0' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -89,7 +94,9 @@ describe('POST /ccAmount', () => {
     })
 
     it('returns percl command for redirect to amount confirmation when user enters valid amount', async () => {
-        const res = await request.post('/ccAmount').type('form')
+        const res = await request
+            .post('/ccAmount')
+            .type('form')
             .send({ digits: '25' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -102,7 +109,9 @@ describe('POST /ccAmount', () => {
     })
 
     it('returns percl command for err message and redirect to original prompt on error', async () => {
-        const res = await request.post('/ccAmount').type('form')
+        const res = await request
+            .post('/ccAmount')
+            .type('form')
             .send({ digits: '102' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
@@ -127,13 +136,16 @@ describe('POST /ccAmount', () => {
                 .send({ digits: '101' })
         }
 
-        const res = await request.post('/ccAmount').type('form')
+        const res = await request
+            .post('/ccAmount')
+            .type('form')
             .send({ digits: '101' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
             {
                 Say: {
-                    text: 'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    text:
+                        'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }
             },
             {

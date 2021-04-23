@@ -29,40 +29,35 @@ router.post('/ccAmountConfirmationPrompt', (req, res) => {
 })
 
 router.post('/ccAmountConfirmation', (req, res) => {
-  const getDigitsResponse = req.body
-  const digits = getDigitsResponse.digits
-  const menuOpts = new Map([
-    [
-      '1',
-      {
-        script: 'Thank you',
-        redirect: `${host}/ccNumberPrompt`
-      }
-    ],
-    [
-      '2',
-      {
-        script: 'Ok',
-        redirect: `${host}/ccAmountPrompt`
-      }
-    ],
-    [
-      '0',
-      { script: 'Redirecting you to an operator', redirect: `${host}/transfer` }
-    ]
-  ])
-  if ((!digits || !menuOpts.get(digits)) && errCount < 3) {
-    errCount++
-    res
-      .status(200)
-      .json(
-        freeclimb.percl.build(
-          freeclimb.percl.say('Error'),
-          freeclimb.percl.redirect(
-            `${host}/ccAmountConfirmationPrompt?amt=${req.param('amt')}`
-          )
+    const getDigitsResponse = req.body
+    const digits = getDigitsResponse.digits
+    const menuOpts = new Map([
+        [
+            '1',
+            {
+                script: 'Thank you',
+                redirect: `${host}/ccNumberPrompt`
+            }
+        ],
+        [
+            '2',
+            {
+                script: 'Ok',
+                redirect: `${host}/ccAmountPrompt`
+            }
+        ],
+        ['0', { script: 'Redirecting you to an operator', redirect: `${host}/transfer` }]
+    ])
+    if ((!digits || !menuOpts.get(digits)) && errCount < 3) {
+        errCount++
+        res.status(200).json(
+            freeclimb.percl.build(
+                freeclimb.percl.say('Error'),
+                freeclimb.percl.redirect(
+                    `${host}/ccAmountConfirmationPrompt?amt=${req.param('amt')}`
+                )
+            )
         )
-      )
     } else if (errCount >= 3 || retries >= 2) {
         errCount = 0
         res.status(200).json(

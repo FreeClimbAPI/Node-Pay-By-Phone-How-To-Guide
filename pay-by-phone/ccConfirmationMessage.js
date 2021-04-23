@@ -7,10 +7,8 @@ const fcNumber = process.env.FC_NUMBER
 const router = express.Router()
 
 router.post('/ccConfirmationMessage', (req, res) => {
-   const confirmationNumber = codeGenerator.generate()
-   res
-      .status(200)
-      .json(
+    const confirmationNumber = codeGenerator.generate()
+    res.status(200).json(
         freeclimb.percl.build(
             freeclimb.percl.say(
                 `Thank you for your payment, your confirmation number is ${confirmationNumber}, you will receive an sms shortly`

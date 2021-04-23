@@ -14,11 +14,13 @@ beforeEach(() => {
 })
 
 describe('POST /ccRecapPrompt', () => {
-
     it('returns the percl commands for the payment info recap menu getdigits including redirect and prompt', async () => {
         caller.paymentAmt = 20
-        caller.ccNum = "341814945428581"
-        const res = await request.post('/ccRecapPrompt').type('form').send({ from: '1' })
+        caller.ccNum = '341814945428581'
+        const res = await request
+            .post('/ccRecapPrompt')
+            .type('form')
+            .send({ from: '1' })
         expect(res.status).toBe(200)
         expect(res.body).toStrictEqual([
             {
@@ -94,7 +96,6 @@ describe('POST /ccRecap', () => {
         ])
     })
 
-
     it('returns transfer to operator if max retry limit reached', async () => {
         for (let i = 0; i < 2; i++) {
             await request
@@ -166,6 +167,4 @@ describe('POST /ccRecap', () => {
             }
         ])
     })
-
-
 })

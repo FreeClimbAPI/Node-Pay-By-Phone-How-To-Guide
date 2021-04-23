@@ -46,8 +46,7 @@ router.post('/ccAmount', (req, res) => {
                 freeclimb.percl.redirect(`${host}/ccAmountConfirmationPrompt?amt=${price}`)
             )
         )
-    } 
-    else if (errCount >= 3) {
+    } else if (errCount >= 3) {
         res.status(200).json(
             freeclimb.percl.build(
                 freeclimb.percl.say(
