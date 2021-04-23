@@ -1,8 +1,6 @@
 let request
 let caller
 
-require('dotenv-safe').config()
-
 const host = process.env.HOST
 
 beforeEach(() => {

@@ -1,7 +1,5 @@
 let request
 
-require('dotenv-safe').config()
-
 const host = process.env.HOST
 const fcNumber = process.env.FC_NUMBER
 

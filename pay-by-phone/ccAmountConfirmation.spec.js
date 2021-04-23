@@ -1,7 +1,5 @@
 let request
 
-require('dotenv-safe').config()
-
 const host = process.env.HOST
 
 beforeEach(() => {

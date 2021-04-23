@@ -2,8 +2,6 @@ let request
 let customers
 let caller
 
-require('dotenv-safe').config()
-
 const host = process.env.HOST
 
 beforeEach(() => {
