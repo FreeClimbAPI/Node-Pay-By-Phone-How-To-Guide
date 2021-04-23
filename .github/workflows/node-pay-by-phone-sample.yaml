@@ -9,7 +9,7 @@ defaults:
     working-directory: pay-by-phone
 
 jobs:
-  self_service_1_5:
+  pay_by_phone:
     name: Pay By Phone
     strategy:
       matrix:
