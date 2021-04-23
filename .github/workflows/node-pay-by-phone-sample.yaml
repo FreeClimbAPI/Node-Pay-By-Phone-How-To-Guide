@@ -6,7 +6,7 @@ on:
 
 defaults:
   run:
-    working-directory: pay-by-phone
+    working-directory: .
 
 jobs:
   pay_by_phone:
