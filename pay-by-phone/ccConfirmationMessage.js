@@ -4,7 +4,7 @@ const freeclimb = require('./freeclimb')
 const host = process.env.HOST
 const fcNumber = process.env.FC_NUMBER
 
-router = express.Router()
+const router = express.Router()
 
 router.post('/ccConfirmationMessage', (req, res) => {
     const confirmationNumber = Math.floor(100000 + Math.random() * 900000).toString()

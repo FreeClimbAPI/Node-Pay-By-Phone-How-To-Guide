@@ -4,7 +4,7 @@ const caller = require('./caller')
 
 const host = process.env.HOST
 
-router = express.Router()
+const router = express.Router()
 
 let errCount = 0
 let retries = 0

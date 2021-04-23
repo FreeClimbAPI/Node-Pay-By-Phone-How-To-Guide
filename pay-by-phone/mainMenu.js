@@ -4,7 +4,7 @@ const freeclimb = require('./freeclimb')
 
 const host = process.env.HOST
 
-router = express.Router()
+const router = express.Router()
 
 let mainMenuErrCount = 0
 
