@@ -2,7 +2,7 @@ name: Pay By Phone CI
 on:
   push:
     paths:
-      - './**'
+      - '**'
 
 defaults:
   run:
