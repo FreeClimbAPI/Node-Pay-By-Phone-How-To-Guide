@@ -12,7 +12,6 @@ let retries = 0
 
 router.post('/ccRecapPrompt', (req, res) => {
     customers.add(req.from)
-    console.log(req.from)
     res.status(200).json(
         freeclimb.percl.build(
             freeclimb.percl.getDigits(`${host}/ccRecap`, {
