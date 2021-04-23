@@ -35,3 +35,7 @@ jobs:
                   FC_NUMBER: 'N/A'
                   PORT: '3000'
                   HOST: 'http://localhost:3000'
+            - name: Coveralls
+              uses: coverallsapp/github-action@master
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
