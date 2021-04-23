@@ -27,7 +27,7 @@ jobs:
             - name: Static Code Analysis
               run: yarn lint
             - name: Test
-              run: yarn test:cov
+              run: yarn test:ci
               env:
                   API_KEY: 'N/A'
                   ACCOUNT_ID: 'N/A'
