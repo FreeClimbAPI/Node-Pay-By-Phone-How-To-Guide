@@ -4,7 +4,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/FreeClimbAPI/Node-Pay-By-Phone-Tutorial/actions/workflows/node-pay-by-phone-sample.yaml/badge.svg)](https://github.com/FreeClimbAPI/Node-Pay-By-Phone-Tutorial/actions/workflows/node-pay-by-phone-tutorial.yaml)
-[![Coverage Status](https://coveralls.io/repos/github/FreeClimbAPI/Node-Pay-By-Phone/badge.svg?branch=master)](https://coveralls.io/github/FreeClimbAPI/Node-Pay-By-Phone-Tutorial?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/FreeClimbAPI/Node-Pay-By-Phone-Tutorial/badge.svg?branch=master)](https://coveralls.io/github/FreeClimbAPI/Node-Pay-By-Phone-Tutorial?branch=master)
 
 
 
