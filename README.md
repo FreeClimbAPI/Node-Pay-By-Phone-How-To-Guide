@@ -1,4 +1,4 @@
-# Node Pay By Phone Tutorial
+# Node Pay By Phone How-To Guide
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
@@ -15,7 +15,7 @@ Specifically, the project will:
 - Collect and process credit card payment information using [`privacymode`](https://docs.freeclimb.com/docs/securing-sensitive-user-data#using-privacymode-in-your-applications)
 - Use [PerCL](https://docs.freeclimb.com/reference/percl-overview) to send an SMS payment confirmation message to user
 
-## Tutorial
+## How-To Guide
 
 We offer a [Pay by Phone with Voice Calling tutorial](https://docs.freeclimb.com/docs/pay-by-phone) for more detailed set-up instructions and explanation of how the code in this sample app works.
 
