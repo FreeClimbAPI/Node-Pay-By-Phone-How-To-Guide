@@ -1,7 +1,7 @@
 {
   "name": "Node_Pay_By_Phone",
   "version": "1.0.0",
-  "description": "Simple pay-by-phone application tutorial",
+  "description": "Simple pay-by-phone application how-to guide",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
