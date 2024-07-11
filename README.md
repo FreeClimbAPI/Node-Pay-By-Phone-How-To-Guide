@@ -17,7 +17,7 @@ Specifically, the project will:
 
 ## How-To Guide
 
-We offer a [Pay by Phone with Voice Calling tutorial](https://docs.freeclimb.com/docs/pay-by-phone) for more detailed set-up instructions and explanation of how the code in this sample app works.
+We offer a [Pay by Phone with Voice Calling how-to guide](https://docs.freeclimb.com/docs/pay-by-phone) for more detailed set-up instructions and explanation of how the code in this sample app works.
 
 ## Requirements
 A [FreeClimb account](https://www.freeclimb.com/dashboard/signup/)
