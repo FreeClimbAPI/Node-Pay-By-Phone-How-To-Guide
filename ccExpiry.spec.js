@@ -29,6 +29,7 @@ describe('POST /ccExpiryPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text:
                                     'Enter the expiration date using two digits for the month and two digits for the year'
                             }
@@ -57,6 +58,7 @@ describe('POST /ccExpiryPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'Okay, whats the four digit expiration date'
                             }
                         }
@@ -107,6 +109,7 @@ describe('POST /ccExpiry', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Sorry the date you entered was invalid please try again'
                 }
             },
@@ -134,6 +137,7 @@ describe('POST /ccExpiry', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }

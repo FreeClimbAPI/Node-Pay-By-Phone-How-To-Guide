@@ -30,6 +30,7 @@ describe('POST /ccRecapPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text:
                                     'Your payment will be 20 dollars on the card ending in 8581, if thats correct press 1 to confirm if not press 2 to try again'
                             }
@@ -51,6 +52,7 @@ describe('POST /ccRecap', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Error'
                 }
             },
@@ -78,6 +80,7 @@ describe('POST /ccRecap', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Please wait while we connect you to an operator'
                 }
             },
@@ -110,6 +113,7 @@ describe('POST /ccRecap', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Please wait while we connect you to an operator'
                 }
             },
@@ -135,6 +139,7 @@ describe('POST /ccRecap', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'great'
                 }
             },
@@ -155,6 +160,7 @@ describe('POST /ccRecap', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Sorry to make sure your information is correct lets start again'
                 }
             },

@@ -2,6 +2,7 @@ const express = require('express')
 const caller = require('./caller')
 const testCards = require('./testCards')
 const freeclimb = require('./freeclimb')
+const { PerclScript, Redirect, Say } = require('@freeclimb/sdk')
 
 const host = process.env.HOST
 
@@ -14,29 +15,35 @@ router.post('/ccProcess', (req, res) => {
     if (testResponse.result === 'success') {
         retries = 0
         res.status(200).json(
-            freeclimb.percl.build(freeclimb.percl.redirect(`${host}/ccConfirmationMessage`))
+            new PerclScript({
+                commands: [new Redirect({ actionUrl: `${host}/ccConfirmationMessage` })]
+            }).build()
         )
     } else if (retries < 1) {
         retries++
-        // console.error(testResponse.message)
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    "We're having trouble processing your payment, please try again. Remember we Accept Visa, Discover, Mastercard and American Express cards"
-                ),
-                freeclimb.percl.redirect(`${host}/ccNumberPrompt`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text:
+                            "We're having trouble processing your payment, please try again. Remember we Accept Visa, Discover, Mastercard and American Express cards"
+                    }),
+                    new Redirect({ actionUrl: `${host}/ccNumberPrompt` })
+                ]
+            }).build()
         )
     } else {
         retries = 0
-        // console.error(testResponse.message)
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    'The payment could not be processed at this time please wait while we transfer you to an operator'
-                ),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text:
+                            'The payment could not be processed at this time please wait while we transfer you to an operator'
+                    }),
+                    new Redirect({ actionUrl: `${host}/transfer` })
+                ]
+            }).build()
         )
     }
 })

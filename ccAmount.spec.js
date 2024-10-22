@@ -28,12 +28,14 @@ describe('POST /ccAmountPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text:
                                     'How much would you like to pay? Just key in the payment amount in US Dollars For example, to make a payment of twenty dollars press two zero, to speak to an agent press zero'
                             }
                         },
                         {
                             Say: {
+                                loop: 1,
                                 text: 'The maximum amount is 100 dollars'
                             }
                         }
@@ -60,11 +62,13 @@ describe('POST /ccAmountPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'so how much would you like to pay'
                             }
                         },
                         {
                             Say: {
+                                loop: 1,
                                 text: 'The maximum amount is 100 dollars'
                             }
                         }
@@ -115,6 +119,7 @@ describe('POST /ccAmount', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Sorry the number you entered was invalid please try again'
                 }
             },
@@ -142,6 +147,7 @@ describe('POST /ccAmount', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }

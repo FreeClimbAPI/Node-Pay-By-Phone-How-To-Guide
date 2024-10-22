@@ -13,6 +13,7 @@ const ccRecapRoutes = require('./ccRecap')
 const ccProcessRoutes = require('./ccProcess')
 const ccConfirmationMessageRoutes = require('./ccConfirmationMessage')
 const freeclimb = require('./freeclimb')
+const { PerclScript, Say, Pause, Redirect, Hangup } = require('@freeclimb/sdk')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -33,31 +34,38 @@ app.use('/', ccConfirmationMessageRoutes)
 
 app.post('/incomingCall', (req, res) => {
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.say('Welcome to the Node Pay By Phone Sample App.'),
-            freeclimb.percl.pause(100),
-            freeclimb.percl.redirect(`${host}/mainMenuPrompt`)
-        )
+        new PerclScript({
+            commands: [
+                new Say({ text: 'Welcome to the Node Pay By Phone Sample App.' }),
+                new Pause({ length: 100 }),
+                new Redirect({ actionUrl: `${host}/mainMenuPrompt` })
+            ]
+        }).build()
     )
 })
 
 app.post('/transfer', (req, res) => {
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.say('there are no operators available at this time'),
-            freeclimb.percl.redirect(`${host}/endCall`)
-        )
+        new PerclScript({
+            commands: [
+                new Say({ text: 'there are no operators available at this time' }),
+                new Redirect({ actionUrl: `${host}/endCall` })
+            ]
+        }).build()
     )
 })
 
 app.post('/endCall', (req, res) => {
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.say(
-                'Thank you for calling the Node Pay By Phone sample app , have a nice day!'
-            ),
-            freeclimb.percl.hangup()
-        )
+        new PerclScript({
+            commands: [
+                new Say({
+                    text:
+                        'Thank you for calling the Node Pay By Phone sample app , have a nice day!'
+                }),
+                new Hangup({})
+            ]
+        }).build()
     )
 })
 

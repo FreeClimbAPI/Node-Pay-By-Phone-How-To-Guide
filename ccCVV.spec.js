@@ -31,6 +31,7 @@ describe('POST /ccCVVPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'Almost done, Whats the security code'
                             }
                         }
@@ -58,6 +59,7 @@ describe('POST /ccCVVPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'Okay, whats the security code'
                             }
                         }
@@ -110,6 +112,7 @@ describe('POST /ccCVV', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Sorry im looking for the 3 digit security code, please enter it now'
                 }
             },
@@ -138,6 +141,7 @@ describe('POST /ccCVV', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }

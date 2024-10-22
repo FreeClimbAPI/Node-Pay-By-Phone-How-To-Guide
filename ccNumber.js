@@ -3,6 +3,7 @@ const cardValidator = require('card-validator')
 const customers = require('./customers')
 const caller = require('./caller')
 const freeclimb = require('./freeclimb')
+const { PerclScript, GetDigits, Say, Redirect } = require('@freeclimb/sdk')
 
 const host = process.env.HOST
 
@@ -20,15 +21,18 @@ router.post('/ccNumberPrompt', (req, res) => {
     }
 
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.getDigits(`${host}/ccNumber`, {
-                prompts: [freeclimb.percl.say(script)],
-                maxDigits: 19,
-                minDigits: 1,
-                flushBuffer: true,
-                privacyMode: true //privacyMode hides important information to maintain pci compliance, avoid logging sensitive info
-            })
-        )
+        new PerclScript({
+            commands: [
+                new GetDigits({
+                    prompts: [new Say({ text: script })],
+                    actionUrl: `${host}/ccNumber`,
+                    maxDigits: 19,
+                    minDigits: 1,
+                    flushBuffer: true,
+                    privacyMode: true // privacyMode hides important information to maintain pci compliance, avoid logging sensitive info
+                })
+            ]
+        }).build()
     )
 })
 
@@ -42,35 +46,49 @@ router.post('/ccNumber', (req, res) => {
         caller.CVVType = ccValidation.card.code.size
         caller.ccNum = digits
         res.status(200).json(
-            freeclimb.percl.build(freeclimb.percl.redirect(`${host}/ccExpiryPrompt`))
+            new PerclScript({
+                commands: [new Redirect({ actionUrl: `${host}/ccExpiryPrompt` })]
+            }).build()
         )
     } else if (digits == '0') {
-        res.status(200).json(freeclimb.percl.build(freeclimb.percl.redirect(`${host}/transfer`)))
+        res.status(200).json(
+            new PerclScript({
+                commands: [new Redirect({ actionUrl: `${host}/transfer` })]
+            }).build()
+        )
     } else if (errCount > 3) {
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
-                ),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text:
+                            'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    }),
+                    new Redirect({ actionUrl: `${host}/transfer` })
+                ]
+            }).build()
         )
     } else if (errCount >= 3) {
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
-                ),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text:
+                            'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    }),
+                    new Redirect({ actionUrl: `${host}/transfer` })
+                ]
+            }).build()
         )
     } else {
         errCount++
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say('Sorry the number you entered was invalid please try again'),
-                freeclimb.percl.redirect(`${host}/ccNumberPrompt`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({ text: 'Sorry the number you entered was invalid please try again' }),
+                    new Redirect({ actionUrl: `${host}/ccNumberPrompt` })
+                ]
+            }).build()
         )
     }
 })
