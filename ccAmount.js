@@ -20,7 +20,7 @@ router.post('/ccAmountPrompt', (req, res) => {
                                 ? 'so how much would you like to pay'
                                 : 'How much would you like to pay? Just key in the payment amount in US Dollars For example, to make a payment of twenty dollars press two zero, to speak to an agent press zero'
                         }),
-                        new Say({ text: "The maximum amount is 100 dollars" })
+                        new Say({ text: 'The maximum amount is 100 dollars' })
                     ],
                     actionUrl: `${host}/ccAmount`,
                     maxDigits: 3,
