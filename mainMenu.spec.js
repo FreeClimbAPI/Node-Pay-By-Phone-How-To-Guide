@@ -23,6 +23,7 @@ describe('POST /mainMenuPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text:
                                     ' to make a one time payment please press 1, or press 0 to speak with an operator'
                             }
@@ -74,6 +75,7 @@ describe('POST /mainMenu', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Error, please try again'
                 }
             },

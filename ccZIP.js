@@ -2,6 +2,7 @@ const express = require('express')
 const customers = require('./customers')
 const caller = require('./caller')
 const freeclimb = require('./freeclimb')
+const { PerclScript, GetDigits, Say, Redirect } = require('@freeclimb/sdk')
 
 const host = process.env.HOST
 
@@ -19,15 +20,18 @@ router.post('/ccZipPrompt', (req, res) => {
     }
 
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.getDigits(`${host}/ccZip`, {
-                prompts: [freeclimb.percl.say(script)],
-                maxDigits: 5,
-                minDigits: 1,
-                flushBuffer: true,
-                privacyMode: true
-            })
-        )
+        new PerclScript({
+            commands: [
+                new GetDigits({
+                    prompts: [new Say({ text: script })],
+                    actionUrl: `${host}/ccZip`,
+                    maxDigits: 5,
+                    minDigits: 1,
+                    flushBuffer: true,
+                    privacyMode: true
+                })
+            ]
+        }).build()
     )
 })
 
@@ -38,37 +42,51 @@ router.post('/ccZip', (req, res) => {
     if (digits.length == 5) {
         caller.Zip = digits
         res.status(200).json(
-            freeclimb.percl.build(freeclimb.percl.redirect(`${host}/ccRecapPrompt`))
+            new PerclScript({
+                commands: [new Redirect({ actionUrl: `${host}/ccRecapPrompt` })]
+            }).build()
         )
     } else if (digits == '0') {
-        res.status(200).json(freeclimb.percl.build(freeclimb.percl.redirect(`${host}/transfer`)))
+        res.status(200).json(
+            new PerclScript({
+                commands: [new Redirect({ actionUrl: `${host}/transfer` })]
+            }).build()
+        )
     } else if (errCount > 3) {
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
-                ),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text:
+                            'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    }),
+                    new Redirect({ actionUrl: `${host}/transfer` })
+                ]
+            }).build()
         )
     } else if (errCount >= 3) {
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
-                ),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text:
+                            'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
+                    }),
+                    new Redirect({ actionUrl: `${host}/transfer` })
+                ]
+            }).build()
         )
     } else {
         errCount++
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(
-                    `Please enter the 5 digit zip code of the billing address for the card you've entered.`
-                ),
-                freeclimb.percl.redirect(`${host}/ccZipPrompt`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({
+                        text: `Please enter the 5 digit zip code of the billing address for the card you've entered.`
+                    }),
+                    new Redirect({ actionUrl: `${host}/ccZipPrompt` })
+                ]
+            }).build()
         )
     }
 })

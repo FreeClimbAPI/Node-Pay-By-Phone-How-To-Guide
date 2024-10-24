@@ -32,6 +32,7 @@ describe('POST /ccProcess', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         "We're having trouble processing your payment, please try again. Remember we Accept Visa, Discover, Mastercard and American Express cards"
                 }
@@ -52,6 +53,7 @@ describe('POST /ccProcess', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         'The payment could not be processed at this time please wait while we transfer you to an operator'
                 }

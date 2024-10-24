@@ -1,5 +1,6 @@
 const express = require('express')
 const freeclimb = require('./freeclimb')
+const { PerclScript, GetDigits, Say, Redirect, Pause } = require('@freeclimb/sdk')
 
 const host = process.env.HOST
 
@@ -9,18 +10,22 @@ let mainMenuErrCount = 0
 
 router.post('/mainMenuPrompt', (req, res) => {
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.getDigits(`${host}/mainMenu`, {
-                prompts: [
-                    freeclimb.percl.say(
-                        ' to make a one time payment please press 1, or press 0 to speak with an operator'
-                    )
-                ],
-                maxDigits: 1,
-                minDigits: 1,
-                flushBuffer: true
-            })
-        )
+        new PerclScript({
+            commands: [
+                new GetDigits({
+                    prompts: [
+                        new Say({
+                            text:
+                                ' to make a one time payment please press 1, or press 0 to speak with an operator'
+                        })
+                    ],
+                    actionUrl: `${host}/mainMenu`,
+                    maxDigits: 1,
+                    minDigits: 1,
+                    flushBuffer: true
+                })
+            ]
+        }).build()
     )
 })
 
@@ -44,24 +49,30 @@ router.post('/mainMenu', (req, res) => {
     if ((!digits || !menuOpts.get(digits)) && mainMenuErrCount < 3) {
         mainMenuErrCount++
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say('Error, please try again'),
-                freeclimb.percl.redirect(`${host}/mainMenuPrompt`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({ text: 'Error, please try again' }),
+                    new Redirect({ actionUrl: `${host}/mainMenuPrompt` })
+                ]
+            }).build()
         )
     } else if (mainMenuErrCount >= 3) {
         mainMenuErrCount = 0
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say('Max retry limit reached'),
-                freeclimb.percl.pause(100),
-                freeclimb.percl.redirect(`${host}/endCall`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({ text: 'Max retry limit reached' }),
+                    new Pause({ length: 100 }),
+                    new Redirect({ actionUrl: `${host}/endCall` })
+                ]
+            }).build()
         )
     } else {
         mainMenuErrCount = 0
         res.status(200).json(
-            freeclimb.percl.build(freeclimb.percl.redirect(menuOpts.get(digits).redirect))
+            new PerclScript({
+                commands: [new Redirect({ actionUrl: menuOpts.get(digits).redirect })]
+            }).build()
         )
     }
 })

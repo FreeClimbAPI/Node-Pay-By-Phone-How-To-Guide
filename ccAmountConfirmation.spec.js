@@ -23,6 +23,7 @@ describe('POST /ccAmountConfirmationPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text:
                                     'Just to be sure thats 20 dollars is that correct? Press 1 for yes and 2 for no'
                             }
@@ -44,6 +45,7 @@ describe('POST /ccAmountConfirmation', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Error'
                 }
             },
@@ -71,6 +73,7 @@ describe('POST /ccAmountConfirmation', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Please wait while we connect you to an operator'
                 }
             },
@@ -103,6 +106,7 @@ describe('POST /ccAmountConfirmation', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Please wait while we connect you to an operator'
                 }
             },
@@ -128,6 +132,7 @@ describe('POST /ccAmountConfirmation', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Thank you'
                 }
             },
@@ -148,6 +153,7 @@ describe('POST /ccAmountConfirmation', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Ok'
                 }
             },

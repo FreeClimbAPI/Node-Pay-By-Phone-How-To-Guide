@@ -29,6 +29,7 @@ describe('POST /ccZipPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'Last thing, Whats the zip code for this card?'
                             }
                         }
@@ -56,6 +57,7 @@ describe('POST /ccZipPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'Okay, whats the Zip code'
                             }
                         }
@@ -106,6 +108,7 @@ describe('POST /ccZip', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         "Please enter the 5 digit zip code of the billing address for the card you've entered."
                 }
@@ -134,6 +137,7 @@ describe('POST /ccZip', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }

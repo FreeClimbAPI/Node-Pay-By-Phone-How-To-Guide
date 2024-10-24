@@ -29,6 +29,7 @@ describe('POST /ccNumberPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text:
                                     'To make a payment with a credit card please enter the card number'
                             }
@@ -57,6 +58,7 @@ describe('POST /ccNumberPrompt', () => {
                     prompts: [
                         {
                             Say: {
+                                loop: 1,
                                 text: 'Okay, whats that card number'
                             }
                         }
@@ -107,6 +109,7 @@ describe('POST /ccNumber', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text: 'Sorry the number you entered was invalid please try again'
                 }
             },
@@ -134,6 +137,7 @@ describe('POST /ccNumber', () => {
         expect(res.body).toStrictEqual([
             {
                 Say: {
+                    loop: 1,
                     text:
                         'You have exceeded the maximum number of retries allowed, please wait while we connect you to an operator'
                 }

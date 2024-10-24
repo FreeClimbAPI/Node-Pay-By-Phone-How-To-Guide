@@ -2,6 +2,7 @@ const express = require('express')
 const caller = require('./caller')
 const customers = require('./customers')
 const freeclimb = require('./freeclimb')
+const { PerclScript, GetDigits, Say, Redirect, Pause } = require('@freeclimb/sdk')
 
 const host = process.env.HOST
 
@@ -13,22 +14,25 @@ let retries = 0
 router.post('/ccRecapPrompt', (req, res) => {
     customers.add(req.from)
     res.status(200).json(
-        freeclimb.percl.build(
-            freeclimb.percl.getDigits(`${host}/ccRecap`, {
-                prompts: [
-                    freeclimb.percl.say(
-                        `Your payment will be ${
-                            caller.paymentAmt
-                        } dollars on the card ending in ${caller.ccNum.substring(
-                            caller.ccNum.length - 4
-                        )}, if thats correct press 1 to confirm if not press 2 to try again`
-                    )
-                ],
-                maxDigits: 1,
-                minDigits: 1,
-                flushBuffer: true
-            })
-        )
+        new PerclScript({
+            commands: [
+                new GetDigits({
+                    prompts: [
+                        new Say({
+                            text: `Your payment will be ${
+                                caller.paymentAmt
+                            } dollars on the card ending in ${caller.ccNum.substring(
+                                caller.ccNum.length - 4
+                            )}, if thats correct press 1 to confirm if not press 2 to try again`
+                        })
+                    ],
+                    actionUrl: `${host}/ccRecap`,
+                    maxDigits: 1,
+                    minDigits: 1,
+                    flushBuffer: true
+                })
+            ]
+        }).build()
     )
 })
 
@@ -55,19 +59,23 @@ router.post('/ccRecap', (req, res) => {
     if ((!digits || !menuOpts.get(digits)) && errCount < 1) {
         errCount++
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say('Error'),
-                freeclimb.percl.redirect(`${host}/ccRecapPrompt`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({ text: 'Error' }),
+                    new Redirect({ actionUrl: `${host}/ccRecapPrompt` })
+                ]
+            }).build()
         )
     } else if (errCount >= 1 || retries >= 1) {
         errCount = 0
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say('Please wait while we connect you to an operator'),
-                freeclimb.percl.pause(100),
-                freeclimb.percl.redirect(`${host}/transfer`)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({ text: 'Please wait while we connect you to an operator' }),
+                    new Pause({ length: 100 }),
+                    new Redirect({ actionUrl: `${host}/transfer` })
+                ]
+            }).build()
         )
     } else {
         errCount = 0
@@ -77,10 +85,12 @@ router.post('/ccRecap', (req, res) => {
             retries = 0
         }
         res.status(200).json(
-            freeclimb.percl.build(
-                freeclimb.percl.say(menuOpts.get(digits).script),
-                freeclimb.percl.redirect(menuOpts.get(digits).redirect)
-            )
+            new PerclScript({
+                commands: [
+                    new Say({ text: menuOpts.get(digits).script }),
+                    new Redirect({ actionUrl: menuOpts.get(digits).redirect })
+                ]
+            }).build()
         )
     }
 })
